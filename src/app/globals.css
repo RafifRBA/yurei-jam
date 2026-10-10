@@ -1,0 +1,99 @@
+@import 'tailwindcss';
+
+/* Night expressway tokens (TECH_SPEC §13.1). Speed colours live in src/lib/color.ts. */
+:root {
+  --night: #0b1026; /* page and scene background */
+  --night-2: #121936; /* raised surfaces: charts, insight cards */
+  --night-line: #2c3566; /* hairlines on night surfaces */
+  --asphalt: #1a1d2b;
+  --lane: #e8e6df;
+  --lamp: #ff9f43; /* the only warm light; also the focus colour */
+  --sign: #0f5b3f; /* guide-sign green panels */
+  --sign-deep: #0a4430;
+  --sign-text: #ffffff;
+  --ink: #eceffa;
+  --ink-muted: #aeb6d4;
+}
+
+@theme inline {
+  --color-night: var(--night);
+  --color-night-2: var(--night-2);
+  --color-night-line: var(--night-line);
+  --color-asphalt: var(--asphalt);
+  --color-lane: var(--lane);
+  --color-lamp: var(--lamp);
+  --color-sign: var(--sign);
+  --color-sign-deep: var(--sign-deep);
+  --color-sign-text: var(--sign-text);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --font-sans: var(--font-barlow);
+  --font-mono: var(--font-jetbrains);
+}
+
+html {
+  color-scheme: dark;
+  background: var(--night);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--night);
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.55;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Browser surfaces themed from the palette */
+::selection {
+  background: var(--lamp);
+  color: var(--asphalt);
+}
+
+:focus-visible {
+  outline: 2px solid var(--lamp);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+* {
+  scrollbar-color: var(--night-line) var(--night);
+}
+
+/* Guide-sign panel: deep green, white text, thin white inset line */
+.sign-panel {
+  background: var(--sign);
+  color: var(--sign-text);
+  border-radius: 10px;
+  box-shadow:
+    inset 0 0 0 1.5px rgb(255 255 255 / 0.9),
+    0 8px 24px -8px rgb(0 0 0 / 0.55);
+}
+
+.num {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgb(255 159 67 / 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 14px rgb(255 159 67 / 0);
+  }
+}
